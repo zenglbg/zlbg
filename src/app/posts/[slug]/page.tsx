@@ -44,7 +44,7 @@ export default function PostDetail() {
         <div className="text-right text-primary/60 mb-8">{post.date}</div>
         <div
           dangerouslySetInnerHTML={{ __html: marked(post.content) }}
-          className="leading-relaxed prose-headings:text-primary prose-a:text-blue-600 prose-strong:text-primary/90 prose-code:text-blue-600 prose-pre:bg-gray-900 prose-pre:text-gray-100"
+          className="leading-relaxed prose-headings:text-primary prose-a:text-blue-600 prose-strong:text-primary/90 prose-code:text-blue-600 prose-pre:bg-gray-900 prose-pre:text-gray-100 prose-blockquote:border-l-4 prose-blockquote:border-gray-300 prose-blockquote:pl-4 prose-blockquote:italic"
         />
       </article>
     </MainLayout>

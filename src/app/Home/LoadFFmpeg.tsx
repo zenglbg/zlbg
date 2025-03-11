@@ -16,7 +16,7 @@ interface Props {
 export default function LoadFFmpeg({ children, onFFmpegLoaded }: Props) {
 
     const { load, loaded, loading } = useFFmpeg()
-    const t = useTranslations('common')
+    const t = useTranslations()
     if (loaded) {
         return (
             <div className="w-full pl-6 flex flex-col items-center">
@@ -29,7 +29,6 @@ export default function LoadFFmpeg({ children, onFFmpegLoaded }: Props) {
         <div className="w-full pt-20 px-10">
             <div className="">
                 <h2 className="text-xl font-bold mb-2">{t('title')}</h2>
-                <h2 className="text-xl font-bold mb-2">欢迎使用音视频工具箱</h2>
                 <p className="text-gray-500 mb-4">
                     首次使用需要加载核心组件（约 25MB），加载完成后即可使用所有功能
                 </p>

@@ -1,6 +1,7 @@
 ---
 title: Socket.IO 实时通信完全指南
 date: 2024-03-14
+desc: Socket.IO 是一个强大的 JavaScript 实时通信库，本文将全面介绍其基本概念、核心功能、实战案例以及最佳实践，帮助你掌握实时双向通信开发。
 ---
 
 # Socket.IO 实时通信完全指南

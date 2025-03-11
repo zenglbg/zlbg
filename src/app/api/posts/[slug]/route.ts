@@ -17,7 +17,7 @@ export async function GET(
   }
 
   try {
-    const filePath = path.join(process.cwd(), 'posts', `${params.slug}.md`);
+    const filePath = path.join(process.cwd(), 'posts', `${params.slug.replaceAll("|", '/')}.md`);
     const content = await fs.readFile(filePath, 'utf8');
     const { data, content: markdownContent } = matter(content);
     

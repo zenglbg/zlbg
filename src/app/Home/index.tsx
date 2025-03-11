@@ -57,7 +57,7 @@ export default function Home() {
     );
 
     return (
-        <div className="flex h-screen">
+        <div className="flex min-h-screen">
             <Card
                 title="音视频工具箱"
                 variant="borderless"

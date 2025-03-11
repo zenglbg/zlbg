@@ -8,9 +8,9 @@ import { Analytics } from './providers'
 import { FFmpegProvider } from '@/contexts/FFmpegContext';
 
 export const metadata: Metadata = {
-  title: 'FFmpeg.wasm Demo | 在线音视频处理工具',
-  description: '基于 FFmpeg.wasm 的在线音视频处理工具，提供视频转码、剪辑、合并等功能。同时集成了正则表达式测试、颜色转换、二维码生成等实用工具。',
-  keywords: 'FFmpeg.wasm, 视频处理, 在线工具, 正则表达式, 颜色转换, 二维码生成, Next.js, React',
+  title: 'ZLBG.CC | 在线音视频处理工具',
+  description: '基于 FFmpeg 的在线音视频处理工具，提供视频转码、剪辑、合并等功能。同时集成了正则表达式测试、颜色转换、二维码生成等实用工具。',
+  keywords: 'FFmpeg, 视频处理, 在线工具, 正则表达式, 颜色转换, 二维码生成, Next.js, React',
 }
 
 export default function RootLayout({

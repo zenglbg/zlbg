@@ -1,42 +1,59 @@
 "use client";
 
-import { FFmpeg } from "@ffmpeg/ffmpeg";
+import { useFFmpeg } from "@/contexts/FFmpegContext";
 import { fetchFile } from "@ffmpeg/util";
-import { useRef } from "react";
+import { Button, Upload, message } from "antd";
+import { UploadOutlined } from "@ant-design/icons";
+import { useRef, useState } from "react";
 
-interface Props {
-  ffmpeg: FFmpeg;
-}
+export default function HomeTranscode() {
+    const { ffmpeg } = useFFmpeg();
+    const videoRef = useRef<HTMLVideoElement | null>(null);
+    const messageRef = useRef<HTMLParagraphElement | null>(null);
+    const [processing, setProcessing] = useState(false);
 
-export default function HomeTranscode({ ffmpeg }: Props) {
-  const videoRef = useRef<HTMLVideoElement | null>(null);
-  const messageRef = useRef<HTMLParagraphElement | null>(null);
+    const transcode = async (file: File) => {
+        if (!ffmpeg) return;
+        try {
+            setProcessing(true);
+            await ffmpeg.writeFile("input.avi", await fetchFile(file));
+            await ffmpeg.exec(["-i", "input.avi", "output.mp4"]);
+            const data = (await ffmpeg.readFile("output.mp4")) as any;
+            if (videoRef.current) {
+                videoRef.current.src = URL.createObjectURL(
+                    new Blob([data.buffer], { type: "video/mp4" })
+                );
+            }
+            message.success("转换完成！");
+        } catch (error) {
+            message.error("转换失败");
+            console.error(error);
+        } finally {
+            setProcessing(false);
+        }
+    };
 
-  const transcode = async () => {
-    await ffmpeg.writeFile(
-      "input.avi",
-      await fetchFile(
-        "https://raw.githubusercontent.com/ffmpegwasm/testdata/master/video-15s.avi"
-      )
+    return (
+        <div className="flex flex-col items-center justify-center h-full">
+            <video ref={videoRef} controls className="max-w-2xl mb-6"></video>
+            <Upload
+                accept=".avi,.mp4,.mkv,.mov"
+                showUploadList={false}
+                beforeUpload={(file) => {
+                    transcode(file);
+                    return false;
+                }}
+            >
+                <Button 
+                    type="primary" 
+                    icon={<UploadOutlined />}
+                    loading={processing}
+                    size="large"
+                >
+                    选择视频转换为 MP4
+                </Button>
+            </Upload>
+            <p ref={messageRef} className="mt-4 text-gray-600"></p>
+        </div>
     );
-    await ffmpeg.exec(["-i", "input.avi", "output.mp4"]);
-    const data = (await ffmpeg.readFile("output.mp4")) as any;
-    if (videoRef.current)
-      videoRef.current.src = URL.createObjectURL(
-        new Blob([data.buffer], { type: "video/mp4" })
-      );
-  };
-
-  return (
-    <div className="flex flex-col items-center justify-center h-full">
-      <video ref={videoRef} controls className="max-w-2xl mb-6"></video>
-      <button
-        onClick={transcode}
-        className="bg-green-500 hover:bg-green-700 text-white py-3 px-6 rounded"
-      >
-        转换 AVI 到 MP4
-      </button>
-      <p ref={messageRef} className="mt-4 text-gray-600"></p>
-    </div>
-  );
 }

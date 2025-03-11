@@ -5,6 +5,7 @@ import { GoogleAnalytics } from '@next/third-parties/google'
 import { GA_MEASUREMENT_ID } from '@/lib/ga'
 import Script from 'next/script'
 import { Analytics } from './providers'
+import { FFmpegProvider } from '@/contexts/FFmpegContext';
 
 export const metadata: Metadata = {
   title: 'FFmpeg.wasm Demo | 在线音视频处理工具',

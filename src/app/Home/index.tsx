@@ -7,7 +7,8 @@ import { Button } from "antd";
 import LoadFFmpeg from "./LoadFFmpeg";
 import HomeCompress from "./HomeCompress";
 import HomeExtractAudio from "./HomeExtractAudio";
- 
+import { VideoCameraOutlined, CompressOutlined, AudioOutlined } from "@ant-design/icons";
+
 export default function Home() {
     const [currentTool, setCurrentTool] = useState<'transcode' | 'compress' | 'extract'>('transcode');
     const renderContent = () => {
@@ -27,14 +28,26 @@ export default function Home() {
             <div className="w-64 bg-gray-800 text-white p-6">
                 <h1 className="text-xl font-bold mb-6">音视频工具箱</h1>
                 <nav className="space-y-4">
-                    <button className="w-full text-left py-2 px-4 rounded hover:bg-gray-700">
-                        视频转换
+                    <button
+                        onClick={() => setCurrentTool('transcode')}
+                        className={`w-full text-left py-2 px-4 rounded hover:bg-gray-700 flex items-center gap-2 ${currentTool === 'transcode' ? 'bg-gray-700' : ''
+                            }`}
+                    >
+                        <VideoCameraOutlined /> 视频转换
                     </button>
-                    <button className="w-full text-left py-2 px-4 rounded hover:bg-gray-700">
-                        视频压缩
+                    <button
+                        onClick={() => setCurrentTool('compress')}
+                        className={`w-full text-left py-2 px-4 rounded hover:bg-gray-700 flex items-center gap-2 ${currentTool === 'compress' ? 'bg-gray-700' : ''
+                            }`}
+                    >
+                        <CompressOutlined /> 视频压缩
                     </button>
-                    <button className="w-full text-left py-2 px-4 rounded hover:bg-gray-700">
-                        提取音频
+                    <button
+                        onClick={() => setCurrentTool('extract')}
+                        className={`w-full text-left py-2 px-4 rounded hover:bg-gray-700 flex items-center gap-2 ${currentTool === 'extract' ? 'bg-gray-700' : ''
+                            }`}
+                    >
+                        <AudioOutlined /> 提取音频
                     </button>
                 </nav>
             </div>

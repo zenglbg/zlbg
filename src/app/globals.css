@@ -1,0 +1,60 @@
+@import "tailwindcss";
+
+:root {
+  --background: #ffffff;
+  --foreground: #171717;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0a0a0a;
+    --foreground: #ededed;
+  }
+}
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --color-primary: #557571;
+  --color-secondary: #d4b187;
+  --color-background: #f7f4ed;
+  --color-text: #2C3539;
+  --color-accent: #BC4749;
+}
+
+body {
+  background-color: var(--color-background);
+  color: var(--color-text);
+}
+
+.ant-btn-primary {
+  background-color: var(--color-primary) !important;
+}
+
+.ant-btn-primary:hover {
+  background-color: var(--color-primary-light) !important;
+}
+
+.ant-card {
+  border-color: var(--color-secondary) !important;
+}
+
+.ant-input:focus,
+.ant-input-focused {
+  border-color: var(--color-primary) !important;
+  box-shadow: 0 0 0 2px rgba(85, 117, 113, 0.1) !important;
+}
+
+
+a {
+  color: #0F1416;
+}

@@ -1,0 +1,1 @@
+export const GA_MEASUREMENT_ID = 'G-2TJ0DP41MB' // 替换为您的 GA4 测量 ID

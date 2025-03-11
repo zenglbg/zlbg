@@ -5,6 +5,7 @@ import { fetchFile, toBlobURL } from "@ffmpeg/util";
 import { useRef, useState } from "react";
 import HomeTranscode from "./HomeTranscode";
 import { Button } from "antd";
+import LoadFFmpeg from "./LoadFFmpeg";
 
 export default function Home() {
     const [loaded, setLoaded] = useState(false);
@@ -70,21 +71,9 @@ export default function Home() {
             </div>
 
             {/* 主要内容区域 */}
-            <div className="flex-1 p-8 relative">
-                {loaded ? (
-                    <HomeTranscode ffmpeg={ffmpegRef.current} />
-                ) : (
-                    <div className="flex items-center justify-center h-full">
-                        <Button
-                            className="flex items-center bg-blue-500 hover:bg-blue-700 text-white py-2 px-4 rounded"
-                            onClick={load}
-                            loading={isLoading}
-                        >
-                            加载组件
-                        </Button>
-                    </div>
-                )}
-            </div>
+            <LoadFFmpeg>
+                <HomeTranscode ffmpeg={ffmpegRef.current} />
+            </LoadFFmpeg>
         </div>
     );
 }

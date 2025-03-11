@@ -7,13 +7,14 @@ import { Button, Card } from "antd";
 import LoadFFmpeg from "./LoadFFmpeg";
 import HomeCompress from "./HomeCompress";
 import HomeExtractAudio from "./HomeExtractAudio";
-import { VideoCameraOutlined, CompressOutlined, AudioOutlined } from "@ant-design/icons";
+import { VideoCameraOutlined, CompressOutlined, AudioOutlined, ScissorOutlined } from "@ant-design/icons";
 import { PictureOutlined } from "@ant-design/icons";
 import HomeImageCompress from "./HomeImageCompress";
 import HomeMixAudio from "./HomeMixAudio";
+import HomeVideoEdit from "./HomeVideoEdit";
 
 export default function Home() {
-    const [currentTool, setCurrentTool] = useState<'transcode' | 'compress' | "mixAudio" | 'extract' | 'image'>('transcode');
+    const [currentTool, setCurrentTool] = useState<'transcode' | 'compress' | 'mixAudio' | 'extract' | 'image' | 'videoEdit'>('transcode');
 
     const renderContent = () => {
         switch (currentTool) {
@@ -27,6 +28,8 @@ export default function Home() {
                 return <HomeMixAudio />;
             case 'image':
                 return <HomeImageCompress />;
+            case 'videoEdit':
+                return <HomeVideoEdit />;
         }
         return <div className=""></div>
     };
@@ -57,6 +60,7 @@ export default function Home() {
                 <nav className="space-y-4">
                     {renderNavButton('transcode', <VideoCameraOutlined />, '视频转换')}
                     {renderNavButton('compress', <CompressOutlined />, '视频压缩')}
+                    {renderNavButton('videoEdit', <ScissorOutlined />, '视频剪辑')}
                     {renderNavButton('extract', <AudioOutlined />, '提取音频')}
                     {renderNavButton('mixAudio', <AudioOutlined />, '音频混音')}
                     {renderNavButton('image', <PictureOutlined />, '图片压缩')}

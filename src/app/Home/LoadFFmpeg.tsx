@@ -62,7 +62,7 @@ export default function LoadFFmpeg({ children, onFFmpegLoaded }: Props) {
                 loading={loading}
                 icon={loading ? <LoadingOutlined /> : null}
             >
-                加载 FFmpeg
+                加载核心组件
             </Button>
             {loading && (
                 <div className="text-gray-500">

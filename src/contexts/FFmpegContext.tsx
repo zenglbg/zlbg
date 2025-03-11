@@ -30,7 +30,7 @@ export function FFmpegProvider({ children }: { children: ReactNode }) {
       const baseURL = "/ffmpeg";
 
       ffmpeg.on("log", ({ message: msg }) => {
-        message.info(msg);
+        // message.info(msg);
       });
 
       await ffmpeg.load({

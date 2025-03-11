@@ -42,9 +42,9 @@ export default function PostDetail() {
       <article className="prose prose-slate max-w-none">
         <Title level={2} className="text-primary mb-8">{post.title}</Title>
         <div className="text-right text-primary/60 mb-8">{post.date}</div>
-        <div 
+        <div
           dangerouslySetInnerHTML={{ __html: marked(post.content) }}
-          className="leading-relaxed"
+          className="leading-relaxed prose-headings:text-primary prose-a:text-blue-600 prose-strong:text-primary/90 prose-code:text-blue-600 prose-pre:bg-gray-900 prose-pre:text-gray-100"
         />
       </article>
     </MainLayout>

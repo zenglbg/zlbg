@@ -2,7 +2,7 @@
 
 import { useFFmpeg } from "@/contexts/FFmpegContext";
 import { fetchFile } from "@ffmpeg/util";
-import { Button, Upload, message, Select, Form, Progress } from "antd";
+import { Button, Upload, message, Select, Form, Progress, Card } from "antd";
 import { DownloadOutlined, UploadOutlined } from "@ant-design/icons";
 import { useRef, useState } from "react";
 
@@ -21,7 +21,7 @@ export default function HomeTranscode() {
     const [targetFormat, setTargetFormat] = useState('mp4');
     const [progress, setProgress] = useState(0);
     const [downloadUrl, setDownloadUrl] = useState<string>('');
-    
+
     const transcode = async (file: File) => {
         if (!ffmpeg) return;
         try {
@@ -65,7 +65,8 @@ export default function HomeTranscode() {
     };
 
     return (
-        <div className="flex flex-col items-center justify-center h-full">
+        <Card className="w-full max-w-2xl mx-auto shadow-lg">
+
             <video ref={videoRef} controls className="max-w-2xl mb-6"></video>
             <Form layout="inline" className="mb-4">
                 <Form.Item label="目标格式">
@@ -119,6 +120,6 @@ export default function HomeTranscode() {
                     下载转换后的视频
                 </Button>
             )}
-        </div>
+        </Card>
     );
 }

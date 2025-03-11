@@ -47,7 +47,7 @@ export default function LoadFFmpeg({ children, onFFmpegLoaded }: Props) {
 
     if (loaded) {
         return (
-            <div className="w-full flex flex-col justify-center items-center">
+            <div className="w-full pl-6 flex flex-col items-center">
                 {children}
             </div>
         );

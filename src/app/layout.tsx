@@ -7,6 +7,8 @@ import Script from 'next/script'
 import { Analytics } from './providers'
 import { FFmpegProvider } from '@/contexts/FFmpegContext';
 import SponsorButton from '@/components/SponsorButton';
+import { getLocale, getMessages } from 'next-intl/server';
+import { NextIntlClientProvider } from 'next-intl';
 
 export const metadata: Metadata = {
   title: 'ZLBG.CC | 在线音视频处理工具',
@@ -14,13 +16,18 @@ export const metadata: Metadata = {
   keywords: 'FFmpeg, 视频处理, 在线工具, 正则表达式, 颜色转换, 二维码生成, Next.js, React',
 }
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode
 }) {
+  const locale = await getLocale();
+
+  // Providing all messages to the client
+  // side is the easiest way to get started
+  const messages = await getMessages();
   return (
-    <html lang="zh">
+    <html lang={locale}>
       <head>
         <script src="https://unpkg.com/@ffmpeg/ffmpeg@0.9.5/dist/ffmpeg.min.js"></script>
 
@@ -44,10 +51,13 @@ export default function RootLayout({
         />
       </head>
       <body>
-        {children}
-        <SponsorButton />
-        <Analytics />
-        <GoogleAnalytics gaId={GA_MEASUREMENT_ID} />
+        <NextIntlClientProvider messages={messages}>
+
+          {children}
+          <SponsorButton />
+          <Analytics />
+          <GoogleAnalytics gaId={GA_MEASUREMENT_ID} />
+        </NextIntlClientProvider>
       </body>
     </html>
   )

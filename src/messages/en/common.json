@@ -1,0 +1,12 @@
+{
+  "title": "Online Audio/Video Processing Tools",
+  "description": "Online audio/video processing tools based on FFmpeg, providing video transcoding, editing, merging and other functions.",
+  "sponsor": "Sponsor",
+  "tools": {
+    "video": "Video Processing",
+    "audio": "Audio Processing",
+    "convert": "Format Conversion",
+    "merge": "Merge Files",
+    "cut": "Cut"
+  }
+}

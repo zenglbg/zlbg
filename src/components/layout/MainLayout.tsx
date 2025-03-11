@@ -26,12 +26,12 @@ export default function MainLayout({ children }: { children: React.ReactNode }) 
               onClick={() => trackEvent('click', 'navigation', 'home')}
               className="text-darker hover:text-primary transition-colors"
             >
-              首页
+              音视频工具
             </Link>
-            <Link href="/posts" className="text-darker hover:text-primary transition-colors">文章</Link>
+            <Link href="/qrcode" className="text-darker hover:text-primary transition-colors">二维码工具</Link>
             <Link href="/regex" className="text-darker hover:text-primary transition-colors">正则表达式</Link>
             <Link href="/color" className="text-darker hover:text-primary transition-colors">颜色转换</Link>
-            <Link href="/qrcode" className="text-darker hover:text-primary transition-colors">二维码工具</Link>
+            <Link href="/posts" className="text-darker hover:text-primary transition-colors">博客</Link>
             <Link href="/about" className="text-darker hover:text-primary transition-colors">关于</Link>
           </Space>
         </nav>

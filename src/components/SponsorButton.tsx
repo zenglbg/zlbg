@@ -6,7 +6,7 @@ import { HeartOutlined } from '@ant-design/icons';
 
 const SponsorButton = () => {
     const [isModalOpen, setIsModalOpen] = useState(false);
-    window.setIsModalOpen = setIsModalOpen
+    // window.setIsModalOpen = setIsModalOpen
 
     const showModal = () => {
         setIsModalOpen(true);

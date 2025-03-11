@@ -3,7 +3,7 @@
 import { FFmpeg } from "@ffmpeg/ffmpeg";
 import { toBlobURL } from "@ffmpeg/util";
 import { cloneElement, ReactElement, useState } from "react";
-import { Button, message, Spin } from "antd";
+import { Button, Card, message, Spin } from "antd";
 import { LoadingOutlined } from "@ant-design/icons";
 import { useFFmpeg } from "@/contexts/FFmpegContext";
 
@@ -47,9 +47,9 @@ export default function LoadFFmpeg({ children, onFFmpegLoaded }: Props) {
 
     if (loaded) {
         return (
-            <div className="w-full pl-6 flex flex-col items-center">
+            <Card className="w-full pl-6 flex flex-col items-center">
                 {children}
-            </div>
+            </Card>
         );
     }
 

@@ -3,7 +3,7 @@
 import { FFmpeg } from "@ffmpeg/ffmpeg";
 import { useRef, useState } from "react";
 import HomeTranscode from "./HomeTranscode";
-import { Button } from "antd";
+import { Button, Card } from "antd";
 import LoadFFmpeg from "./LoadFFmpeg";
 import HomeCompress from "./HomeCompress";
 import HomeExtractAudio from "./HomeExtractAudio";
@@ -25,32 +25,33 @@ export default function Home() {
     return (
         <div className="flex h-screen">
             {/* 侧边栏 */}
-            <div className="w-64 bg-gray-800 text-white p-6">
-                <h1 className="text-xl font-bold mb-6">音视频工具箱</h1>
+            <Card
+                title="音视频工具箱"
+                variant="borderless"
+                className="w-64 h-full text-white"
+            >
                 <nav className="space-y-4">
                     <button
                         onClick={() => setCurrentTool('transcode')}
-                        className={`w-full text-left py-2 px-4 rounded hover:bg-gray-700 flex items-center gap-2 ${currentTool === 'transcode' ? 'bg-gray-700' : ''
-                            }`}
+                        className={`w-full text-left py-2 px-4 rounded hover:bg-gray-200 flex items-center gap-2`}
                     >
                         <VideoCameraOutlined /> 视频转换
                     </button>
                     <button
                         onClick={() => setCurrentTool('compress')}
-                        className={`w-full text-left py-2 px-4 rounded hover:bg-gray-700 flex items-center gap-2 ${currentTool === 'compress' ? 'bg-gray-700' : ''
-                            }`}
+                        className={`w-full text-left py-2 px-4 rounded hover:bg-gray-200 flex items-center gap-2`}
                     >
                         <CompressOutlined /> 视频压缩
                     </button>
                     <button
                         onClick={() => setCurrentTool('extract')}
-                        className={`w-full text-left py-2 px-4 rounded hover:bg-gray-700 flex items-center gap-2 ${currentTool === 'extract' ? 'bg-gray-700' : ''
-                            }`}
+                        className={`w-full text-left py-2 px-4 rounded hover:bg-gray-200 flex items-center gap-2`}
                     >
                         <AudioOutlined /> 提取音频
                     </button>
                 </nav>
-            </div>
+            </Card>
+
 
             {/* 主要内容区域 */}
             <LoadFFmpeg>

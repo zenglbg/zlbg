@@ -10,41 +10,77 @@ export default function HomeImageCompress() {
   const { ffmpeg } = useFFmpeg();
   const [processing, setProcessing] = useState(false);
   const [progress, setProgress] = useState(0);
-  const [downloadUrl, setDownloadUrl] = useState<string>('');
-  const [previewUrl, setPreviewUrl] = useState<string>('');
+  const [downloadUrls, setDownloadUrls] = useState<string[]>([]);
+  const [previewUrls, setPreviewUrls] = useState<string[]>([]);
   const [form] = Form.useForm();
+  const [files, setFiles] = useState<FileList | null>(null);
 
-  const compressImage = async (file: File) => {
-    if (!ffmpeg) return;
+  const compressImages = async () => {
+    if (!ffmpeg || !files) return;
     try {
       setProcessing(true);
       setProgress(0);
-      setDownloadUrl('');
-
-      // 显示原图预览
-      setPreviewUrl(URL.createObjectURL(file));
+      setDownloadUrls([]);
 
       const values = await form.validateFields();
-      
-      await ffmpeg.writeFile("input.jpg", await fetchFile(file));
-      setProgress(30);
+      let totalProgress = 0;
+      const fileArray = Array.from(files);
+      const compressedUrls: string[] = new Array(fileArray.length).fill('');
 
-      await ffmpeg.exec([
-        "-i", "input.jpg",
-        "-quality", values.quality.toString(),
-        "-resize", `${values.size}%`,
-        "output.jpg"
-      ]);
+      // 先清理可能存在的文件
+      try {
+        for (let i = 0; i < fileArray.length; i++) {
+          try {
+            await ffmpeg.deleteFile(`input_${i}.jpg`);
+            await ffmpeg.deleteFile(`output_${i}.jpg`);
+          } catch (e) {
+            // 忽略不存在的文件错误
+          }
+        }
+      } catch (e) {
+        console.log('清理文件失败，继续执行', e);
+      }
 
-      setProgress(80);
-      const data = await ffmpeg.readFile("output.jpg") as any;
-      const blobUrl = URL.createObjectURL(
-        new Blob([data.buffer], { type: "image/jpeg" })
-      );
+      for (let i = 0; i < fileArray.length; i++) {
+        const file = fileArray[i];
+        try {
+          // 使用更安全的文件名
+          const inputFileName = `input_${i}_${Date.now()}.jpg`;
+          const outputFileName = `output_${i}_${Date.now()}.jpg`;
+          
+          // 处理单个文件
+          await ffmpeg.writeFile(inputFileName, await fetchFile(file));
+          setProgress((totalProgress += 30 / fileArray.length));
 
-      setDownloadUrl(blobUrl);
+          await ffmpeg.exec([
+            "-i", inputFileName,
+            "-quality", values.quality.toString(),
+            "-resize", `${values.size}%`,
+            outputFileName
+          ]);
+
+          setProgress((totalProgress += 50 / fileArray.length));
+          const data = await ffmpeg.readFile(outputFileName) as any;
+          const blobUrl = URL.createObjectURL(new Blob([data.buffer], { type: "image/jpeg" }));
+          compressedUrls[i] = blobUrl;
+          
+          // 清理文件
+          try {
+            await ffmpeg.deleteFile(inputFileName);
+            await ffmpeg.deleteFile(outputFileName);
+          } catch (e) {
+            console.log('清理文件失败', e);
+          }
+        } catch (error) {
+          console.error(`处理第 ${i+1} 张图片失败:`, error);
+          message.error(`第 ${i+1} 张图片处理失败`);
+          compressedUrls[i] = '';
+        }
+      }
+
+      setDownloadUrls(compressedUrls);
       setProgress(100);
-      message.success("图片压缩完成！");
+      message.success("图片批量压缩完成！");
     } catch (error) {
       message.error("图片压缩失败");
       console.error(error);
@@ -54,30 +90,58 @@ export default function HomeImageCompress() {
   };
 
   return (
-    <Card className="w-full  mx-auto shadow-lg">
+    <Card className="w-full mx-auto shadow-lg">
       <div className="flex flex-col items-center space-y-6 p-4">
-        {previewUrl && (
-          <div className="w-full flex justify-center gap-4">
-            <div className="text-center">
-              <p className="mb-2">原图</p>
-              <Image
-                src={previewUrl}
-                alt="原图"
-                className="max-w-xs"
-                style={{ height: '200px', objectFit: 'contain' }}
-              />
-            </div>
-            {downloadUrl && (
-              <div className="text-center">
-                <p className="mb-2">压缩后</p>
-                <Image
-                  src={downloadUrl}
-                  alt="压缩后"
-                  className="max-w-xs"
-                  style={{ height: '200px', objectFit: 'contain' }}
-                />
+        {previewUrls.length > 0 && (
+          <div className="w-full flex justify-center gap-4 flex-wrap">
+            {previewUrls.map((url, index) => (
+              <div key={index} className="text-center relative">
+                <p className="mb-2">原图 {index + 1}</p>
+                <div className="relative">
+                  <Image
+                    src={url}
+                    alt={`原图 ${index + 1}`}
+                    className="max-w-xs"
+                    style={{ height: '200px', objectFit: 'contain' }}
+                  />
+                  {processing && (
+                    <div className="absolute inset-0 flex items-center justify-center bg-black bg-opacity-50">
+                      <Progress 
+                        type="circle" 
+                        percent={progress} 
+                        size={80}
+                        strokeColor={{
+                          '0%': '#108ee9',
+                          '100%': '#87d068',
+                        }}
+                      />
+                    </div>
+                  )}
+                </div>
+                {downloadUrls[index] && (
+                  <div className="text-center mt-2">
+                    <p className="mb-2">压缩后</p>
+                    <Image
+                      src={downloadUrls[index]}
+                      alt={`压缩后 ${index + 1}`}
+                      className="max-w-xs"
+                      style={{ height: '200px', objectFit: 'contain' }}
+                    />
+                    <div className="mt-2">
+                      <Button
+                        type="primary"
+                        icon={<DownloadOutlined />}
+                        href={downloadUrls[index]}
+                        download={`compressed_image_${index + 1}.jpg`}
+                        disabled={!downloadUrls[index]}
+                      >
+                        下载压缩后的图片
+                      </Button>
+                    </div>
+                  </div>
+                )}
               </div>
-            )}
+            ))}
           </div>
         )}
 
@@ -117,8 +181,13 @@ export default function HomeImageCompress() {
           <Form.Item className="text-center">
             <Upload
               accept="image/*"
-              beforeUpload={(file) => {
-                compressImage(file);
+              multiple
+              beforeUpload={(file, fileList) => {
+                // 将 RcFile[] 转换为 FileList 对象
+                const dataTransfer = new DataTransfer();
+                fileList.forEach(file => dataTransfer.items.add(file));
+                setFiles(dataTransfer.files);
+                setPreviewUrls(Array.from(fileList).map(file => URL.createObjectURL(file)));
                 return false;
               }}
               showUploadList={false}
@@ -129,35 +198,22 @@ export default function HomeImageCompress() {
                 icon={<UploadOutlined />}
                 loading={processing}
               >
-                选择图片压缩
+                选择图片进行批量压缩
               </Button>
             </Upload>
           </Form.Item>
+
+          <Form.Item className="text-center">
+            <Button
+              type="primary"
+              size="large"
+              onClick={compressImages}
+              disabled={!files || processing}
+            >
+              开始压缩
+            </Button>
+          </Form.Item>
         </Form>
-
-        {processing && (
-          <div className="w-full">
-            <Progress
-              percent={progress}
-              status={progress === 100 ? "success" : "active"}
-              strokeColor={{
-                '0%': '#108ee9',
-                '100%': '#87d068',
-              }}
-            />
-          </div>
-        )}
-
-        {downloadUrl && (
-          <Button
-            type="primary"
-            icon={<DownloadOutlined />}
-            href={downloadUrl}
-            download="compressed_image.jpg"
-          >
-            下载压缩后的图片
-          </Button>
-        )}
       </div>
     </Card>
   );

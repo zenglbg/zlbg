@@ -54,21 +54,32 @@ export default function LoadFFmpeg({ children, onFFmpegLoaded }: Props) {
     }
 
     return (
-        <div className="w-full flex justify-center items-center">
-            <Button
-                type="primary"
-                size="large"
-                onClick={load}
-                loading={loading}
-                icon={loading ? <LoadingOutlined /> : null}
-            >
-                加载核心组件
-            </Button>
-            {loading && (
-                <div className="text-gray-500">
-                    <Spin /> 正在加载 FFmpeg 核心文件...
-                </div>
-            )}
-        </div>
+        <div className="w-full pt-20 px-10">
+            <div className="">
+                <h2 className="text-xl font-bold mb-2">欢迎使用音视频工具箱</h2>
+                <p className="text-gray-500 mb-4">
+                    首次使用需要加载核心组件（约 25MB），加载完成后即可使用所有功能
+                </p>
+                <p className="text-gray-400 text-sm">
+                    核心组件仅需加载一次，之后将自动保存在浏览器中
+                </p>
+                <Button
+                    className="w-full"
+                    type="primary"
+                    size="large"
+                    onClick={load}
+                    loading={loading}
+                    icon={loading ? <LoadingOutlined /> : null}
+                >
+                    加载核心组件
+                </Button>
+                <p></p>
+                {loading && (
+                    <div className="text-gray-500">
+                        <Spin /> 正在加载 FFmpeg 核心文件...
+                    </div>
+                )}
+            </div>
+        </div >
     );
 }

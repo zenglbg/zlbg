@@ -4,7 +4,7 @@ import path from 'path'
 
 export default function sitemap(): MetadataRoute.Sitemap {
   // 基础 URL
-  const baseUrl = 'https://zenglbg.github.com'
+  const baseUrl = 'https://www.zlbg.cc'
 
   // 静态路由
   const staticRoutes = [

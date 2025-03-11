@@ -63,6 +63,9 @@ export default function LoadFFmpeg({ children, onFFmpegLoaded }: Props) {
                 <p className="text-gray-400 text-sm">
                     核心组件仅需加载一次，之后将自动保存在浏览器中
                 </p>
+                <p className="text-green-500 text-sm mb-4">
+                    <strong>隐私提示：</strong> 您的文件仅会在本地浏览器中处理，不会上传到任何服务器，请放心使用。
+                </p>
                 <Button
                     className="w-full"
                     type="primary"

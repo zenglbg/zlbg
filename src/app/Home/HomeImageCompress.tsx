@@ -54,7 +54,7 @@ export default function HomeImageCompress() {
   };
 
   return (
-    <Card className="w-full max-w-2xl mx-auto shadow-lg">
+    <Card className="w-full  mx-auto shadow-lg">
       <div className="flex flex-col items-center space-y-6 p-4">
         {previewUrl && (
           <div className="w-full flex justify-center gap-4">

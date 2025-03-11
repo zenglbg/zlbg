@@ -65,7 +65,7 @@ export default function HomeTranscode() {
     };
 
     return (
-        <Card className="w-full max-w-2xl mx-auto shadow-lg">
+        <Card className="w-full mx-auto shadow-lg">
 
             <video ref={videoRef} controls className="max-w-2xl mb-6"></video>
             <Form layout="inline" className="mb-4">

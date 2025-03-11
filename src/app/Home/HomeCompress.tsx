@@ -65,7 +65,7 @@ export default function HomeCompress() {
   };
 
   return (
-    <Card className="w-full max-w-2xl mx-auto shadow-lg">
+    <Card className="w-full  mx-auto shadow-lg">
       <div className="flex flex-col items-center space-y-6 p-4">
         <video ref={videoRef} controls className="w-full mb-6"></video>
 

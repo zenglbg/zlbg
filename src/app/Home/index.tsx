@@ -25,7 +25,7 @@ export default function Home() {
         <div className="flex h-screen">
             {/* 侧边栏 */}
             <div className="w-64 bg-gray-800 text-white p-6">
-                <h1 className="text-xl font-bold mb-6">FFmpeg 工具箱</h1>
+                <h1 className="text-xl font-bold mb-6">音视频工具箱</h1>
                 <nav className="space-y-4">
                     <button className="w-full text-left py-2 px-4 rounded hover:bg-gray-700">
                         视频转换

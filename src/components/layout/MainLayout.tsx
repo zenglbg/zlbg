@@ -18,11 +18,11 @@ export default function MainLayout({ children }: { children: React.ReactNode }) 
   return (
     <Layout className="min-h-screen bg-[#f7f4ed]">
       <Header className="flex items-center justify-between px-6" style={{ backgroundColor: '#557571' }}>
-        <Title level={4} style={{ margin: 0, color: '#f7f4ed' }}>FFmpeg.wasm Demo</Title>
+        <Title level={4} style={{ margin: 0, color: '#f7f4ed' }}>ZLBG.CC</Title>
         <nav>
           <Space size="large">
-            <Link 
-              href="/" 
+            <Link
+              href="/"
               onClick={() => trackEvent('click', 'navigation', 'home')}
               className="text-darker hover:text-primary transition-colors"
             >
@@ -44,18 +44,9 @@ export default function MainLayout({ children }: { children: React.ReactNode }) 
       </Content>
 
       <Footer className="text-center bg-[#557571] text-[#f7f4ed]">
-        <Space size="large">
-          <a
-            className="flex items-center gap-2 text-[#f7f4ed] hover:text-[#d4b187]"
-            href="https://nextjs.org/learn"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image src="/file.svg" alt="File icon" width={16} height={16} aria-hidden />
-            Learn
-          </a>
-          {/* ... existing footer links ... */}
-        </Space>
+        <div className="text-sm opacity-80">
+          Copyright © {new Date().getFullYear()} ZLBG.CC All Rights Reserved.
+        </div>
       </Footer>
     </Layout>
   );

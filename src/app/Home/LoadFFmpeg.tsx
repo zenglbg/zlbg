@@ -47,9 +47,9 @@ export default function LoadFFmpeg({ children, onFFmpegLoaded }: Props) {
 
     if (loaded) {
         return (
-            <Card className="w-full pl-6 flex flex-col items-center">
+            <div className="w-full pl-6 flex flex-col items-center">
                 {children}
-            </Card>
+            </div>
         );
     }
 

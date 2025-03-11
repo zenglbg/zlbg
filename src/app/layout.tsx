@@ -6,6 +6,7 @@ import { GA_MEASUREMENT_ID } from '@/lib/ga'
 import Script from 'next/script'
 import { Analytics } from './providers'
 import { FFmpegProvider } from '@/contexts/FFmpegContext';
+import SponsorButton from '@/components/SponsorButton';
 
 export const metadata: Metadata = {
   title: 'ZLBG.CC | 在线音视频处理工具',
@@ -44,6 +45,7 @@ export default function RootLayout({
       </head>
       <body>
         {children}
+        <SponsorButton />
         <Analytics />
         <GoogleAnalytics gaId={GA_MEASUREMENT_ID} />
       </body>

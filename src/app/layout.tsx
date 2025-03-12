@@ -49,6 +49,13 @@ export default async function RootLayout({
             `,
           }}
         />
+        <script>
+          var _hmt = _hmt || [];
+          var hm = document.createElement("script");
+          hm.src = "https://hm.baidu.com/hm.js?6f56de0cfb1b9f431228ff619bd0bcc8";
+          var s = document.getElementsByTagName("script")[0];
+          s.parentNode.insertBefore(hm, s);
+        </script>
       </head>
       <body>
         <NextIntlClientProvider messages={messages}>
@@ -58,6 +65,7 @@ export default async function RootLayout({
           <Analytics />
           <GoogleAnalytics gaId={GA_MEASUREMENT_ID} />
         </NextIntlClientProvider>
+
       </body>
     </html>
   )

@@ -1,3 +1,12 @@
+---
+title: '区块链开发入门教程 - Truffle框架使用指南'
+date: '2024-01-01'
+tags: ['Blockchain', 'Ethereum', 'Truffle', 'Solidity']
+draft: false
+desc: '本文介绍如何使用Truffle框架进行以太坊智能合约开发,包含环境搭建、合约编写、部署和测试等完整流程'
+---
+
+
 # 区块链开发入门教程
 
 ## 一、引言

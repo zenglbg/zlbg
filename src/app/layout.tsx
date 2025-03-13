@@ -30,7 +30,6 @@ export default async function RootLayout({
     <html lang={locale}>
       <head>
         <script src="https://unpkg.com/@ffmpeg/ffmpeg@0.9.5/dist/ffmpeg.min.js"></script>
-
         <Script
           strategy="afterInteractive"
           src={`https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`}
@@ -49,13 +48,21 @@ export default async function RootLayout({
             `,
           }}
         />
-        <script>
-          var _hmt = _hmt || [];
-          var hm = document.createElement("script");
-          hm.src = "https://hm.baidu.com/hm.js?6f56de0cfb1b9f431228ff619bd0bcc8";
-          var s = document.getElementsByTagName("script")[0];
-          s.parentNode.insertBefore(hm, s);
-        </script>
+        <Script
+          id="baidu-analytics"
+          strategy="afterInteractive"
+          dangerouslySetInnerHTML={{
+            __html: `
+              var _hmt = _hmt || [];
+              (function () {
+                  var hm = document.createElement("script");
+                  hm.src = "https://hm.baidu.com/hm.js?6f56de0cfb1b9f431228ff619bd0bcc8";
+                  var s = document.getElementsByTagName("script")[0];
+                  s.parentNode.insertBefore(hm, s);
+              })();
+            `,
+          }}
+        />
       </head>
       <body>
         <NextIntlClientProvider messages={messages}>
@@ -65,7 +72,6 @@ export default async function RootLayout({
           <Analytics />
           <GoogleAnalytics gaId={GA_MEASUREMENT_ID} />
         </NextIntlClientProvider>
-
       </body>
     </html>
   )

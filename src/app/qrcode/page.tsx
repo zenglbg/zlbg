@@ -1,5 +1,5 @@
 'use client';
-import { Space, Input, Card, Select, Upload, message, Button } from 'antd';
+import { Space, Input, Card, Select, Upload, message, Button, Typography } from 'antd';
 import { QRCodeCanvas } from 'qrcode.react';
 import { UploadOutlined } from '@ant-design/icons';
 import { useState } from 'react';
@@ -7,6 +7,7 @@ import jsQR from 'jsqr';
 import MainLayout from '@/components/layout/MainLayout';
 
 const { TextArea } = Input;
+const { Title } = Typography;
 
 export default function QRCode() {
     const [text, setText] = useState('https://github.com');
@@ -48,83 +49,104 @@ export default function QRCode() {
 
     return (
         <MainLayout>
-            <Space direction="vertical" size="large" className="w-full">
-                <Card title="生成二维码" className="border-secondary/20">
-                    <Space direction="vertical" className="w-full">
-                        <TextArea
-                            rows={4}
-                            value={text}
-                            onChange={(e) => setText(e.target.value)}
-                            placeholder="请输入要生成二维码的内容"
-                            className="border-primary/20 hover:border-primary/40 focus:border-primary"
-                        />
-                        <Space>
-                            <Select
-                                value={size}
-                                onChange={setSize}
-                                options={[
-                                    { label: '小', value: 128 },
-                                    { label: '中', value: 256 },
-                                    { label: '大', value: 512 },
-                                ]}
-                                style={{ width: 120 }}
-                                className="border-primary/20"
-                            />
-                            <Select
-                                value={level}
-                                onChange={setLevel}
-                                options={[
-                                    { label: '低', value: 'L' },
-                                    { label: '中', value: 'M' },
-                                    { label: '高', value: 'Q' },
-                                    { label: '最高', value: 'H' },
-                                ]}
-                                style={{ width: 120 }}
-                                className="border-primary/20"
-                            />
-                        </Space>
-                        <div className="flex justify-center p-4 bg-background/50 rounded-lg">
-                            <QRCodeCanvas
-                                value={text}
-                                size={size}
-                                level={level as 'L' | 'M' | 'Q' | 'H'}
-                                includeMargin
-                                fgColor="#557571"
-                                bgColor="#f7f4ed"
-                            />
-                        </div>
-                    </Space>
-                </Card>
+            <div className="max-w-6xl mx-auto">
+                <Space direction="vertical" size="large" className="w-full">
+                    <Title level={4}>二维码工具</Title>
 
-                <Card title="解析二维码" className="border-secondary/20">
-                    <Space direction="vertical" className="w-full">
-                        <Upload
-                            accept="image/*"
-                            showUploadList={false}
-                            beforeUpload={(file) => {
-                                decodeQR(file);
-                                return false;
-                            }}
-                        >
-                            <Button 
-                                icon={<UploadOutlined />}
-                                className="bg-primary text-background hover:bg-primary-light"
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div className="space-y-6">
+                            <Card 
+                                title="生成二维码" 
+                                className="shadow-sm"
+                                extra={
+                                    <Space>
+                                        <Select
+                                            value={size}
+                                            onChange={setSize}
+                                            options={[
+                                                { label: '小尺寸', value: 128 },
+                                                { label: '中等', value: 256 },
+                                                { label: '大尺寸', value: 512 },
+                                            ]}
+                                            style={{ width: 100 }}
+                                        />
+                                        <Select
+                                            value={level}
+                                            onChange={setLevel}
+                                            options={[
+                                                { label: '低容错', value: 'L' },
+                                                { label: '中等', value: 'M' },
+                                                { label: '较高', value: 'Q' },
+                                                { label: '最高', value: 'H' },
+                                            ]}
+                                            style={{ width: 100 }}
+                                        />
+                                    </Space>
+                                }
                             >
-                                选择二维码图片
-                            </Button>
-                        </Upload>
-                        {decodedText && (
-                            <TextArea
-                                rows={4}
-                                value={decodedText}
-                                readOnly
-                                placeholder="解析结果将显示在这里"
-                                className="border-primary/20"
-                            />
-                        )}
-                    </Space>
-                </Card>
-            </Space>
+                                <Space direction="vertical" className="w-full">
+                                    <TextArea
+                                        rows={4}
+                                        value={text}
+                                        onChange={(e) => setText(e.target.value)}
+                                        placeholder="请输入要生成二维码的内容"
+                                        className="font-mono"
+                                    />
+                                    <div className="flex justify-center p-4 bg-gray-50 rounded-lg">
+                                        <QRCodeCanvas
+                                            value={text}
+                                            size={size}
+                                            level={level as 'L' | 'M' | 'Q' | 'H'}
+                                            includeMargin
+                                            fgColor="#557571"
+                                            bgColor="#f7f4ed"
+                                        />
+                                    </div>
+                                </Space>
+                            </Card>
+                        </div>
+
+                        <div className="space-y-6">
+                            <Card 
+                                title="解析二维码" 
+                                className="shadow-sm"
+                            >
+                                <Space direction="vertical" className="w-full" size="large">
+                                    <div className="flex justify-center p-6 bg-gray-50 rounded-lg border-2 border-dashed">
+                                        <Upload
+                                            accept="image/*"
+                                            showUploadList={false}
+                                            beforeUpload={(file) => {
+                                                decodeQR(file);
+                                                return false;
+                                            }}
+                                        >
+                                            <Button 
+                                                icon={<UploadOutlined />}
+                                                size="large"
+                                                type="primary"
+                                            >
+                                                选择二维码图片
+                                            </Button>
+                                        </Upload>
+                                    </div>
+                                    {decodedText && (
+                                        <div>
+                                            <div className="text-gray-500 mb-2">解析结果：</div>
+                                            <TextArea
+                                                rows={4}
+                                                value={decodedText}
+                                                readOnly
+                                                className="font-mono"
+                                            />
+                                        </div>
+                                    )}
+                                </Space>
+                            </Card>
+                        </div>
+                    </div>
+                </Space>
+            </div>
         </MainLayout>
     );
 }

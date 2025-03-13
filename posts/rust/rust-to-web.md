@@ -3,7 +3,7 @@ title: 'Rust 构建 WebAssembly 模块实现 Gzip 和 Ungzip 功能'
 date: '2024-01-01'
 tags: ['Rust', 'WebAssembly', 'Gzip']
 draft: false
-summary: '本文介绍如何使用 Rust 构建 WebAssembly 模块来实现 Gzip 压缩和解压缩功能'
+desc: '本文介绍如何使用 Rust 构建 WebAssembly 模块来实现 Gzip 压缩和解压缩功能'
 ---
 
 # Rust 构建 WebAssembly 模块实现 Gzip 和 Ungzip 功能

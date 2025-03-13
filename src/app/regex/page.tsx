@@ -64,82 +64,104 @@ export default function RegexTester() {
     }
   }, [pattern, text, flags, isMultiline]);
 
-  const columns = [
-    {
-      title: '匹配内容',
-      dataIndex: 'match',
-      key: 'match',
-    },
-    {
-      title: '位置',
-      dataIndex: 'index',
-      key: 'index',
-    },
-    {
-      title: '捕获组',
-      dataIndex: 'groups',
-      key: 'groups',
-      render: (groups: string[]) => groups.length ? groups.join(', ') : '-'
-    },
-  ];
-
   return (
     <MainLayout>
-      <Space direction="vertical" size="large" className="w-full">
-        <Title level={4}>正则表达式测试工具</Title>
-
-        <Card title="正则表达式">
-          <Space direction="vertical" className="w-full">
-            <Input
-              placeholder="输入正则表达式，如: \w+"
-              value={pattern}
-              onChange={(e) => setPattern(e.target.value)}
-              status={error ? 'error' : ''}
-            />
-            <div className="flex items-center gap-4">
+      <div className="max-w-6xl mx-auto">
+        <Space direction="vertical" size="large" className="w-full">
+          <div className="flex items-center justify-between">
+            <Title level={4}>正则表达式测试工具</Title>
+            <Card className="bg-gray-50">
               <Space>
                 <Switch
                   checked={flags.includes('g')}
                   onChange={(checked) => setFlags(checked ? flags + 'g' : flags.replace('g', ''))}
-                  checkedChildren="g"
+                  checkedChildren="全局匹配 (g)"
                   unCheckedChildren="g"
                 />
                 <Switch
                   checked={flags.includes('i')}
                   onChange={(checked) => setFlags(checked ? flags + 'i' : flags.replace('i', ''))}
-                  checkedChildren="i"
+                  checkedChildren="忽略大小写 (i)"
                   unCheckedChildren="i"
                 />
                 <Switch
                   checked={isMultiline}
                   onChange={setIsMultiline}
-                  checkedChildren="m"
+                  checkedChildren="多行模式 (m)"
                   unCheckedChildren="m"
                 />
               </Space>
-              {error && <span className="text-red-500">{error}</span>}
-            </div>
-          </Space>
-        </Card>
+            </Card>
+          </div>
 
-        <Card title="测试文本">
-          <TextArea
-            rows={6}
-            value={text}
-            onChange={(e) => setText(e.target.value)}
-            placeholder="输入要测试的文本"
-          />
-        </Card>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <Card 
+              title="正则表达式"
+              className="shadow-sm"
+              extra={error && <span className="text-red-500 text-sm">{error}</span>}
+            >
+              <Input
+                placeholder="输入正则表达式，如: \w+"
+                value={pattern}
+                onChange={(e) => setPattern(e.target.value)}
+                status={error ? 'error' : ''}
+                className="text-lg font-mono"
+                size="large"
+              />
+            </Card>
 
-        <Card title={`匹配结果 (${results.length})`}>
-          <Table 
-            columns={columns} 
-            dataSource={results}
-            pagination={false}
-            scroll={{ x: true }}
-          />
-        </Card>
-      </Space>
+            <Card 
+              title="测试文本" 
+              className="shadow-sm"
+            >
+              <TextArea
+                rows={4}
+                value={text}
+                onChange={(e) => setText(e.target.value)}
+                placeholder="输入要测试的文本"
+                className="font-mono"
+              />
+            </Card>
+          </div>
+
+          <Card 
+            title={`匹配结果 (${results.length})`}
+            className="shadow-sm"
+          >
+            <Table 
+              columns={[
+                {
+                  title: '匹配内容',
+                  dataIndex: 'match',
+                  key: 'match',
+                  className: 'font-mono',
+                },
+                {
+                  title: '位置',
+                  dataIndex: 'index',
+                  key: 'index',
+                  width: 100,
+                },
+                {
+                  title: '捕获组',
+                  dataIndex: 'groups',
+                  key: 'groups',
+                  render: (groups: string[]) => (
+                    <span className="font-mono">
+                      {groups.length ? groups.join(', ') : '-'}
+                    </span>
+                  )
+                },
+              ]}
+              dataSource={results}
+              pagination={false}
+              scroll={{ x: true }}
+              className="overflow-x-auto"
+              size="middle"
+            />
+          </Card>
+        </Space>
+      </div>
     </MainLayout>
   );
 }

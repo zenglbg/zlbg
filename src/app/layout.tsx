@@ -16,10 +16,7 @@ export const metadata: Metadata = {
   keywords: 'FFmpeg, 视频处理, 在线工具, 正则表达式, 颜色转换, 二维码生成, Next.js, React',
 }
 
-// Add this to modify headers for COEP compatibility
-export const headers = {
-  'Cross-Origin-Embedder-Policy': 'credentialless'
-};
+ 
 
 export default async function RootLayout({
   children,
@@ -27,10 +24,8 @@ export default async function RootLayout({
   children: React.ReactNode
 }) {
   const locale = await getLocale();
-
-  // Providing all messages to the client
-  // side is the easiest way to get started
   const messages = await getMessages();
+  
   return (
     <html lang={locale}>
       <head>
@@ -55,17 +50,18 @@ export default async function RootLayout({
         />
         <Script
           id="baidu-analytics"
-          strategy="afterInteractive"
+          strategy="lazyOnload"
           crossOrigin="anonymous"
           dangerouslySetInnerHTML={{
             __html: `
               var _hmt = _hmt || [];
-              (function () {
-                  var hm = document.createElement("script");
-                  hm.src = "https://hm.baidu.com/hm.js?6f56de0cfb1b9f431228ff619bd0bcc8";
-                  hm.crossOrigin = "anonymous";
-                  var s = document.getElementsByTagName("script")[0];
-                  s.parentNode.insertBefore(hm, s);
+              (function() {
+                var hm = document.createElement("script");
+                hm.src = "https://hm.baidu.com/hm.js?6f56de0cfb1b9f431228ff619bd0bcc8";
+                hm.crossOrigin = "anonymous";
+                hm.defer = true;
+                var s = document.getElementsByTagName("script")[0];
+                s.parentNode.insertBefore(hm, s);
               })();
             `,
           }}

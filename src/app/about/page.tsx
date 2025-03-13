@@ -19,7 +19,7 @@ export default function About() {
               <Space size="large">
                 <Text><PhoneOutlined /> 13266863616</Text>
                 <Text><MailOutlined /> zenglbg@gmail.com</Text>
-                <Text>
+                {/* <Text>
                   <a 
                     href="https://zenglbg.github.com" 
                     target="_blank" 
@@ -28,7 +28,7 @@ export default function About() {
                   >
                     <GithubOutlined /> zenglbg.github.com
                   </a>
-                </Text>
+                </Text> */}
               </Space>
             </div>
 

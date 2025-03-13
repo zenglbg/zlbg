@@ -1,13 +1,12 @@
 'use client';
 import { Space, Typography } from 'antd';
 import MainLayout from '@/components/layout/MainLayout';
-import Sidebar from './components/Sidebar';
-import QRGenerator from './components/QRGenerator';
-import QRScanner from './components/QRScanner';
+import Sidebar from '../components/Sidebar';
+import QRScanner from '../components/QRScanner';
 
 const { Title } = Typography;
 
-export default function QRCode() {
+export default function ScanPage() {
   return (
     <MainLayout>
       <div className="max-w-6xl mx-auto">
@@ -20,10 +19,7 @@ export default function QRCode() {
             </div>
             
             <div className="flex-grow ml-6">
-              <div className="grid grid-cols-1 gap-6">
-                <QRGenerator />
-                <QRScanner />
-              </div>
+              <QRScanner />
             </div>
           </div>
         </Space>

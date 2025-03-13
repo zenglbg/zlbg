@@ -1,6 +1,6 @@
 'use client';
 import { Menu } from 'antd';
-import { QrcodeOutlined, ScanOutlined } from '@ant-design/icons';
+import { QrcodeOutlined, ScanOutlined, AppstoreAddOutlined } from '@ant-design/icons';
 import { useRouter, usePathname } from 'next/navigation';
 
 export default function Sidebar() {
@@ -17,6 +17,11 @@ export default function Sidebar() {
       key: '/qrcode/scan',
       icon: <ScanOutlined />,
       label: '解析二维码',
+    },
+    {
+      key: '/qrcode/batch',
+      icon: <AppstoreAddOutlined />,
+      label: '批量生成二维码',  // 新增菜单项
     },
   ];
 

@@ -57,10 +57,8 @@ export default async function RootLayout({
               var _hmt = _hmt || [];
               (function() {
                 var hm = document.createElement("script");
-                hm.src = "https://hm.baidu.com/hm.js?6f56de0cfb1b9f431228ff619bd0bcc8";
-                hm.crossOrigin = "anonymous";
-                hm.defer = true;
-                var s = document.getElementsByTagName("script")[0];
+                hm.src = "https://hm.baidu.com/hm.js?05a9d46e566e73c20ac986dae4cfdbe0";
+                var s = document.getElementsByTagName("script")[0]; 
                 s.parentNode.insertBefore(hm, s);
               })();
             `,

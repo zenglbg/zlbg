@@ -1,8 +1,8 @@
 'use client';
-import { Space, Input, Card, Button, Form, List } from 'antd';
+import { Space, Input, Card, Button, Form, Table, Upload, message } from 'antd';
 import { QRCodeCanvas } from 'qrcode.react';
 import { useState } from 'react';
-import { Table } from 'antd';
+import { UploadOutlined, DownloadOutlined } from '@ant-design/icons';
 
 const { TextArea } = Input;
 
@@ -13,6 +13,27 @@ export default function QRBatchGenerator({ qrStyle }: { qrStyle: { size?: number
   const handleGenerate = () => {
     const newTexts = inputValue.split('\n').filter(text => text.trim() !== '');
     setTexts(newTexts);
+  };
+
+  const handleUpload = (file: File) => {
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      const content = e.target?.result as string;
+      const newTexts = content.split('\n').filter(text => text.trim() !== '');
+      setTexts(newTexts);
+      message.success('文件上传成功！');
+    };
+    reader.readAsText(file);
+    return false;
+  };
+
+  const handleDownloadSample = () => {
+    const sampleData = '示例二维码内容1\n示例二维码内容2\n示例二维码内容3';
+    const blob = new Blob([sampleData], { type: 'text/plain' });
+    const link = document.createElement('a');
+    link.href = URL.createObjectURL(blob);
+    link.download = 'sample_qr_codes.txt';
+    link.click();
   };
 
   const columns = [
@@ -58,6 +79,14 @@ export default function QRBatchGenerator({ qrStyle }: { qrStyle: { size?: number
         </Form.Item>
         <Button type="primary" onClick={handleGenerate}>
           生成二维码
+        </Button>
+        <Upload accept=".txt" showUploadList={false} beforeUpload={handleUpload}>
+          <Button icon={<UploadOutlined />} className="ml-2">
+            上传二维码数据
+          </Button>
+        </Upload>
+        <Button icon={<DownloadOutlined />} onClick={handleDownloadSample} className="ml-2">
+          下载示例表格
         </Button>
       </Form>
       <Table columns={columns} dataSource={dataSource} pagination={false} />

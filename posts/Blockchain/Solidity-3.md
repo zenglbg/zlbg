@@ -3,7 +3,7 @@ title: 'Solidity智能合约开发进阶教程'
 date: '2024-01-01'
 tags: ['Blockchain', 'Ethereum', 'Solidity', 'Smart Contract', 'Advanced']
 draft: false
-summary: '本文深入探讨Solidity智能合约的高级特性,包括继承、库、错误处理、修饰器等进阶概念,帮助开发者构建更复杂和安全的智能合约'
+desc: '本文深入探讨Solidity智能合约的高级特性,包括继承、库、错误处理、修饰器等进阶概念,帮助开发者构建更复杂和安全的智能合约'
 ---
 
 # Solidity 智能合约开发示例教程

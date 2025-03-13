@@ -150,5 +150,4 @@ http-server
 - **浏览器加载问题**：如果在浏览器中无法加载 WASM 模块，确保 `index.html` 文件中的 `import` 路径正确，并且本地服务器正常运行。
 
 ---
-
-以上内容可以直接保存为 `README.md` 文件，为你提供了一个完整的从 Rust 编写到在 JavaScript 中使用 WASM 模块实现 Gzip 和 Ungzip 功能的教程。 
+ 

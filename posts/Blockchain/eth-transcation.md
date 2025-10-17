@@ -1,6 +1,6 @@
 ---
 title: '以太坊交易（Transaction）全景指南：从发送到确认的每一步'
-date: '2024-01-01'
+date: '2025-10-17'
 tags: ['Blockchain', 'Ethereum', 'Transaction', 'Gas', 'Etherscan', 'MetaMask']
 draft: false
 desc: '系统梳理以太坊交易的完整生命周期：字段含义、3种发起方式、状态流转、Gas优化、常见问题排查与安全实践，并附可运行代码示例。'
